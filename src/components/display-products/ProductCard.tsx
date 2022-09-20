@@ -67,7 +67,7 @@ import Product from "../../models/Product";
     }
   `;
   
-  interface productProps {
+  export interface productProps {
       product: Product,
       key: number
   }

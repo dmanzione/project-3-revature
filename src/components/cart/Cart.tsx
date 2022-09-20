@@ -2,7 +2,11 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { CartContext } from "../../context/cart.context";
+import { productProps } from "../display-products/ProductCard";
 import Navbar from "../navbar/Narbar";
+import { Badge } from "@material-ui/core";
+import { AddCircle, RemoveCircle } from "@material-ui/icons";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 const Container = styled.div``;
 
@@ -130,10 +134,58 @@ const Button = styled.button`
   font-weight: 600;
 `;
 
+const RemoveButton = styled.button`
+  width: 10%;
+  height: 10%;
+  padding: 10px;
+  margin-right: 10px;
+  align-self: center;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  font-size: .7rem;
+  cursor: pointer;
+`;
+
+const CounterButton = styled.button`
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
+`;
+
 export const Cart = () => {
+  //imports the cart from CartContext
   const { cart, setCart } = useContext(CartContext);
 
   const navigate = useNavigate();
+
+  //removes item from cart array by index
+  const removeItem = (props:productProps) => {
+    const newCart = [...cart]
+    const index = newCart.indexOf(props.product)
+    newCart.splice(index, 1)
+    setCart(newCart)
+  }
+
+  //increases the passed in product quantity by 1
+  const increaseQuantity = (props:productProps) =>{
+    const newCart = [...cart]
+    const index = newCart.indexOf(props.product)
+    newCart[index].quantity += 1; 
+    setCart(newCart)
+  }
+
+  //decreases the passed in product quantity by 1, or removes it if quantity is 0
+  const decreaseQuantity = (props:productProps) =>{
+    const newCart = [...cart]
+    const index = newCart.indexOf(props.product)
+    if(newCart[index].quantity !== 1){
+      newCart[index].quantity -= 1; 
+      setCart(newCart)
+    } else {
+      removeItem({product:props.product, key:props.product.id})
+    }
+  }
 
   return (
     <Container>
@@ -163,10 +215,26 @@ export const Cart = () => {
                     </ProductDetail>
                     <PriceDetail>
                       <ProductAmountContainer>
-                        <ProductAmount> {product.quantity} </ProductAmount>
+                        {/* Adds custom made buttons that call the newly made functions */}
+                        <ProductAmount>
+                          <CounterButton onClick={()=>decreaseQuantity({product:product, key:product.id})}>
+                            <Badge color="primary">
+                              <RemoveCircle />
+                            </Badge>
+                          </CounterButton>
+                          {product.quantity} 
+                          <CounterButton onClick={()=>increaseQuantity({product:product, key:product.id})}>
+                            <Badge color="primary">
+                              <AddCircle />
+                            </Badge>
+                          </CounterButton>
+                        </ProductAmount>
+
                       </ProductAmountContainer>
                       <ProductPrice>$ {product.price}</ProductPrice>
                     </PriceDetail>
+                    <RemoveButton onClick={()=>removeItem({product:product, key:product.id})}>Remove Item</RemoveButton>
+
                   </Product>
                   <Hr/>
                 </>
