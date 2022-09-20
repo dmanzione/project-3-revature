@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo "Building the .jar file"
+      - java -version
+      - mvn clean install
+
+artifacts:
+  files:
+    - Dockerfile
+    - target/**/*
