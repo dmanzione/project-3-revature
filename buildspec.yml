@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-version:
+      nodejs: 14
+  
+  pre_build:
+    commands:
+      - npm install
+  
+  build:
+    commands:
+      - node --version
+      - npm run build
+
+artifacts:
+  files:
+    - Dockerfile
+    - build/**/*
+    - nginx/nginx.conf
