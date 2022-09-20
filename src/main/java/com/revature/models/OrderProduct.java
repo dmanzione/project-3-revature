@@ -1,7 +1,5 @@
 package com.revature.models;
 
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,33 +11,25 @@ import javax.persistence.Table;
 
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
+@Data
 @Entity
-@Table(name = "order_products")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Table(name = "order_products")
 public class OrderProduct {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "order-id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "order_id")
 	private Order order;
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "product-id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_id")
 	private Product product;	
-	private int quanty;
+	private int quantity;
 	private double subtotal;
-	
-	
 }
