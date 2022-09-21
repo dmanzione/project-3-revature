@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +26,18 @@ public class OrderService {
 		return orderRepository.findById(id);
 	}
 	
-	public Optional<Order> findByUser(int userId)
+	public List<Order> findByUser(int userId)
 	{
-		return orderRepository.findOrderByUserId(userId);
+		List<Order> orderList = orderRepository.findAll();
+		List<Order> userOrderList = new LinkedList<>();
+		for(Order o: orderList)
+		{
+			if(o.getUser().getId() == userId)//getUser().getId() == userId
+			{
+				userOrderList.add(o);
+			}
+		}
+		return userOrderList;
 	}
 	
 	public Order save(Order order) {
