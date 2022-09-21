@@ -88,6 +88,7 @@ import Product from "../../models/Product";
       else newCart[index].quantity += product.quantity
 
       setCart(newCart)
+      window.sessionStorage.setItem("cart", JSON.stringify(newCart))
     }
 
     return (
