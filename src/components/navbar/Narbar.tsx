@@ -56,10 +56,24 @@ const Navbar = () => {
   const { user, setUser } = useContext(UserContext); //added this
 
   const checkUser = () => {
-    console.log(user)
-    if(user.firstName !== ""){
-      return "Welcome, " + user.firstName.toUpperCase() + "!"
+    if(window.sessionStorage.getItem("userFirstName")){
+      return "Welcome, " + window.sessionStorage.getItem("userFirstName") + "!"
+    } else {
+      return "Shopping as Guest User"
     }
+  }
+
+  const setSignInSignOut = () => {
+    if(window.sessionStorage.getItem("userEmail")){
+      return "SIGN OUT"
+    } else {
+      return "SIGN IN"
+    }
+  }
+
+  const signOut = () =>{
+    window.sessionStorage.clear()
+    navigate('/login')
   }
 
   return (
@@ -71,12 +85,11 @@ const Navbar = () => {
         <Welcome>{checkUser()}</Welcome>
         </Left>
         <Right>
+          <MenuItem>WISHLIST</MenuItem>
           <MenuItem onClick={() => {navigate('/register')}}>REGISTER</MenuItem>
-          <MenuItem onClick={() => {navigate('/login')}}>SIGN IN</MenuItem>
+          <MenuItem onClick={() => {signOut()}}>{setSignInSignOut()}</MenuItem>
           <MenuItem onClick={() => {navigate('/cart')}}>
-            <Badge color="primary">
               <ShoppingCartOutlined />
-            </Badge>
           </MenuItem>
         </Right>
       </Wrapper>

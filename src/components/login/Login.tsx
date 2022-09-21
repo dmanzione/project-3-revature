@@ -25,14 +25,12 @@ export default function Login() {
     const data = new FormData(event.currentTarget);
     const response = await apiLogin(`${data.get('email')}`, `${data.get('password')}`);
     if (response.status >= 200 && response.status < 300) { 
-      setUser({ //brl
-        id: response.payload.id,
-        email: response.payload.email,
-        firstName: response.payload.firstName,
-        lastName: response.payload.lastName
-      });
+      //sets all logged in user data to session storage
+      window.sessionStorage.setItem("userID", response.payload.id);
+      window.sessionStorage.setItem("userEmail", response.payload.email);
+      window.sessionStorage.setItem("userFirstName", response.payload.firstName);
+      window.sessionStorage.setItem("userLastName", response.payload.lastName);
       navigate('/')
-      
     }
   };
 
@@ -88,6 +86,14 @@ export default function Login() {
                 <Link href="register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
+              </Grid>
+            </Grid>
+
+            <Grid container>
+              <Grid item>
+                  <Link href="/" variant="body2">
+                    {"Shop as Guest"}
+                  </Link>
               </Grid>
             </Grid>
           </Box>
