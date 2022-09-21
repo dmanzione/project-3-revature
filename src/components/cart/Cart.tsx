@@ -217,15 +217,11 @@ export const Cart = () => {
                         {/* Adds custom made buttons that call the newly made functions */}
                         <ProductAmount>
                           <CounterButton onClick={()=>decreaseQuantity({product:product, key:product.id})}>
-                            <Badge color="primary">
                               <RemoveCircle />
-                            </Badge>
                           </CounterButton>
                           {product.quantity} 
                           <CounterButton onClick={()=>increaseQuantity({product:product, key:product.id})}>
-                            <Badge color="primary">
                               <AddCircle />
-                            </Badge>
                           </CounterButton>
                         </ProductAmount>
 

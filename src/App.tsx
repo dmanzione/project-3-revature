@@ -7,8 +7,8 @@ import { AppRoutes } from './router/AppRoutes';
 
 function App() {
   const [cart, setCart] = useState<ProductItem[]>([]);
-  const value = { cart, setCart };
 
+  const value = { cart, setCart };
   return (
     <CartContext.Provider value={value}>
       <Router>
