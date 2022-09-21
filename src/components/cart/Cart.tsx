@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { CartContext } from "../../context/cart.context";
 import { productProps } from "../display-products/ProductCard";
 import Navbar from "../navbar/Narbar";
-import { Badge } from "@mui/material";
 import { AddCircle, RemoveCircle } from "@mui/icons-material";
+import ProductModel from "../../models/Product";
 
 const Container = styled.div``;
 
@@ -155,31 +155,45 @@ const CounterButton = styled.button`
 export const Cart = () => {
   //imports the cart from CartContext
   const { cart, setCart } = useContext(CartContext);
+  const sessionCart: ProductModel[] = [];
 
+  if(window.sessionStorage.getItem("cart")){
+    const jsonCart:string|null = sessionStorage.getItem("cart");
+    if(jsonCart !== null){
+      // console.log(jsonCart)
+      JSON.parse(jsonCart).map((data:ProductModel) => {
+          
+          sessionCart.push(data);
+        });
+    }
+  }
   const navigate = useNavigate();
 
   //removes item from cart array by index
   const removeItem = (props:productProps) => {
-    const newCart = [...cart]
+    const newCart = [...sessionCart]
     const index = newCart.indexOf(props.product)
     newCart.splice(index, 1)
+    window.sessionStorage.setItem("cart", JSON.stringify(newCart))
     setCart(newCart)
   }
 
   //increases the passed in product quantity by 1
   const increaseQuantity = (props:productProps) =>{
-    const newCart = [...cart]
+    const newCart = [...sessionCart]
     const index = newCart.indexOf(props.product)
     newCart[index].quantity += 1; 
+    window.sessionStorage.setItem("cart", JSON.stringify(newCart))
     setCart(newCart)
   }
 
   //decreases the passed in product quantity by 1, or removes it if quantity is 0
   const decreaseQuantity = (props:productProps) =>{
-    const newCart = [...cart]
+    const newCart = [...sessionCart]
     const index = newCart.indexOf(props.product)
     if(newCart[index].quantity !== 1){
       newCart[index].quantity -= 1; 
+      window.sessionStorage.setItem("cart", JSON.stringify(newCart))
       setCart(newCart)
     } else {
       removeItem({product:props.product, key:props.product.id})
@@ -195,13 +209,14 @@ export const Cart = () => {
           <TopButton onClick={() => {navigate('/')}}>CONTINUE SHOPPING</TopButton>
           <TopButton onClick={() => {navigate('/checkout')}}>CHECKOUT NOW</TopButton>
         </Top>
+        
         <Bottom>
           <Info>
             {
-              cart.map((product)=> (
-                <>
+              sessionCart.map((product)=> ( 
+                <div key={product.id}>
                   <Product>
-                    <ProductDetail>
+                    <ProductDetail key="product detail">
                       <Image src={product.image} />
                       <Details>
                         <ProductName>
@@ -232,7 +247,7 @@ export const Cart = () => {
 
                   </Product>
                   <Hr/>
-                </>
+                </div>
               ))
             }
           </Info>

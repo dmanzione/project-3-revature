@@ -14,11 +14,9 @@ import { apiLogin } from '../../remote/e-commerce-api/authService';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
-import User from '../../models/User';
 
 const theme = createTheme();
 export default function Login() {
-  const { user, setUser } = useContext(UserContext); //brl
   const navigate = useNavigate();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
