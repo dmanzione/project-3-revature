@@ -3,6 +3,7 @@ import {
     ShoppingCartOutlined,
   } from "@mui/icons-material";
 import { useContext } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
   import styled from "styled-components";
 import { CartContext } from "../../context/cart.context";
 import Product from "../../models/Product";
@@ -73,6 +74,7 @@ import Product from "../../models/Product";
   }
 
   export const ProductCard = (props: productProps) => {
+
     const { cart, setCart } = useContext(CartContext);
 
     const addItemToCart = (product: Product) => {
