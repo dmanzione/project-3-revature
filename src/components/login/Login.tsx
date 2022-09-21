@@ -12,17 +12,28 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { apiLogin } from '../../remote/e-commerce-api/authService';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../context/user.context';
+import User from '../../models/User';
 
 const theme = createTheme();
-
 export default function Login() {
+  const { user, setUser } = useContext(UserContext); //brl
   const navigate = useNavigate();
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const response = await apiLogin(`${data.get('email')}`, `${data.get('password')}`);
-    if (response.status >= 200 && response.status < 300) navigate('/')
+    if (response.status >= 200 && response.status < 300) { 
+      setUser({ //brl
+        id: response.payload.id,
+        email: response.payload.email,
+        firstName: response.payload.firstName,
+        lastName: response.payload.lastName
+      });
+      navigate('/')
+      
+    }
   };
 
   return (

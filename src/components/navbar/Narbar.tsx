@@ -1,15 +1,18 @@
 import { Badge } from "@material-ui/core";
 import { ShoppingCartOutlined } from "@material-ui/icons";
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { UserContext } from "../../context/user.context";
 
 const Container = styled.div`
-  height: 60px;
+  height: 3%;
+  background-color: #c6baba;
+  border-bottom: .3rem ridge black;
 `;
 
 const Wrapper = styled.div`
-  padding: 10px 20px;
+  padding: 0px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,7 +26,18 @@ const Left = styled.div`
 
 const Logo = styled.h1`
   font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0 .8rem;
+
 `;
+
+const Welcome = styled.h2`
+  margin-top: 2.5%;
+  margin-left: 3%;
+  font-size: .8rem;
+`;
+
 const Right = styled.div`
   flex: 1;
   display: flex;
@@ -39,12 +53,22 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext); //added this
+
+  const checkUser = () => {
+    console.log(user)
+    if(user.firstName !== ""){
+      return "Welcome, " + user.firstName.toUpperCase() + "!"
+    }
+  }
 
   return (
     <Container>
       <Wrapper>
         <Left>
-        <Logo onClick={() => {navigate('/')}}>Revature Swag Shop</Logo>
+        <Logo onClick={() => {navigate('/')}}>
+          Bizbazaar </Logo>
+        <Welcome>{checkUser()}</Welcome>
         </Left>
         <Right>
           <MenuItem onClick={() => {navigate('/register')}}>REGISTER</MenuItem>
