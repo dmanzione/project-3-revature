@@ -25,6 +25,11 @@ public class OrderService {
 		return orderRepository.findById(id);
 	}
 	
+	public Optional<Order> findByUser(int userId)
+	{
+		return orderRepository.findOrderByUserId(userId);
+	}
+	
 	public Order save(Order order) {
 		return orderRepository.save(order);
 	}
