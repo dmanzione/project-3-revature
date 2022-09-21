@@ -20,8 +20,8 @@ public class ECommerceApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
 				.allowedOrigins(
-					"http://bizbazaarbizbazaarappeb-frontend-env.eba-rzd5q64x.us-east-1.elasticbeanstalk.com/",
-					"localhost:8080"
+					"http://bizbazaarbizbazaarappeb-frontend-env.eba-rzd5q64x.us-east-1.elasticbeanstalk.com",
+					"localhost:3000"
 				)
 				.allowedMethods("DELETE", "GET", "HEAD", "OPTIONS", "POST", "PUT");
 			}
