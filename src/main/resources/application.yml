@@ -3,13 +3,13 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.H2Dialect
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     defer-datasource-initialization: true
   datasource:
-    url: jdbc:h2:mem:memdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: password
+    url: ${DB_URL}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_CREDENTIALS:username}
+    password: ${DB_CREDENTIALS:password}
   h2:
     console.enabled: true
