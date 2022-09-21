@@ -17,7 +17,6 @@ public class OrderService {
 		this.orderRepository = orderRepository;
 	}
 	
-	
 	public List<Order> findAll(){
 		return orderRepository.findAll();
 	}
@@ -37,7 +36,4 @@ public class OrderService {
 	public void delete(int id) {
 		orderRepository.deleteById(id);
 	}
-	
-	
-	
 }

@@ -1,4 +1,4 @@
-INSERT INTO product (id, quantity, price, description, image, name) VALUES (
+INSERT INTO products (id, quantity, price, description, image, name) VALUES (
     1,
     10,
     20.00,
