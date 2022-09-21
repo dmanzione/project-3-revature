@@ -4,9 +4,8 @@ import styled from "styled-components";
 import { CartContext } from "../../context/cart.context";
 import { productProps } from "../display-products/ProductCard";
 import Navbar from "../navbar/Narbar";
-import { Badge } from "@material-ui/core";
-import { AddCircle, RemoveCircle } from "@material-ui/icons";
-import { hover } from "@testing-library/user-event/dist/hover";
+import { Badge } from "@mui/material";
+import { AddCircle, RemoveCircle } from "@mui/icons-material";
 
 const Container = styled.div``;
 

@@ -1,7 +1,7 @@
 import {
     SearchOutlined,
     ShoppingCartOutlined,
-  } from "@material-ui/icons";
+  } from "@mui/icons-material";
 import { useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
   import styled from "styled-components";
