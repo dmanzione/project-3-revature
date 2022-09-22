@@ -1,5 +1,5 @@
 
-export const AddProduct = () => {
+export const UpsertProduct = () => {
   return (
     <div>AddProduct</div>
   )
