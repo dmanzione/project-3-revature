@@ -11,6 +11,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    public Optional<User> findById(int id) {
+        return userRepository.findById(id);
+    }
+    
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
