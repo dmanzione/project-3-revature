@@ -33,7 +33,7 @@ public class OrderController {
 		this.orderProductService = orderProductService;
 	}
 
-	//@Authorized
+	@Authorized
 	@GetMapping
 	public ResponseEntity<List<Order>> getOrders() {
 		return ResponseEntity.ok(orderService.findAll());
