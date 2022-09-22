@@ -7,7 +7,7 @@ const eCommerceClient = axios.create({
   baseURL: 'http://localhost:8080',
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:8080',
+    'Access-Control-Allow-Origin': 'http://bizbazaarbizbazaarappeb-frontend-env.eba-rzd5q64x.us-east-1.elasticbeanstalk.com',
   },
 });
 
