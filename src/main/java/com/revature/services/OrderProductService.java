@@ -3,10 +3,12 @@ package com.revature.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.revature.models.OrderProduct;
 import com.revature.repositories.OrderProductRepository;
 
-
+@Service
 public class OrderProductService {
 
 	private final OrderProductRepository orderProductRepository;
@@ -21,6 +23,10 @@ public class OrderProductService {
 	
 	public Optional<OrderProduct> findById(int id){
 		return orderProductRepository.findById(id);
+	}
+	
+	public List<OrderProduct> findAllByOrder(int orderId){
+		return orderProductRepository.findAllByOrder_Id(orderId);
 	}
 	
 	public OrderProduct save(OrderProduct orderProduct) {

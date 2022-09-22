@@ -26,18 +26,9 @@ public class OrderService {
 		return orderRepository.findById(id);
 	}
 	
-	public List<Order> findByUser(int userId)
+	public Optional<List<Order>> findByUser(int userId)
 	{
-		List<Order> orderList = orderRepository.findAll();
-		List<Order> userOrderList = new LinkedList<>();
-		for(Order o: orderList)
-		{
-			if(o.getUser().getId() == userId)//getUser().getId() == userId
-			{
-				userOrderList.add(o);
-			}
-		}
-		return userOrderList;
+		return Optional.of(orderRepository.findAllByUser_Id(userId));
 	}
 	
 	public Order save(Order order) {
