@@ -37,6 +37,27 @@ INSERT INTO products (id, quantity, price, description, image, name) VALUES (
     'A nice coat',
     'https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png',
     'Coat'
+),
+(
+    6,
+    5,
+    59.99,
+    'Mortal Kombat Logo',
+    'https://www.pngarts.com/files/12/Mortal-Kombat-Video-Game-PNG-Image-Background.png',
+    'Mortal Kombat'
+),
+(
+    7,
+    7,
+    49.99,
+    'Happy Yoshi',
+    'https://www.pngarts.com/files/2/Yoshi-PNG-Pic.png',
+    'Yoshi'
+);
+
+INSERT INTO wishlists (id, user_id) VALUES (
+    1,
+    1
 );
 
 INSERT INTO users (id, email, password, first_name, last_name) VALUES (
