@@ -20,4 +20,5 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
+    private int typeId; //added by Brandon, for user typing (1-Admin, 2-Employee, 3-customer, 4-guest)
 }
