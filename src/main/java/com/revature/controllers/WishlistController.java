@@ -20,20 +20,20 @@ import com.revature.models.WishlistProduct;
 import com.revature.models.Wishlist;
 import com.revature.services.ProductService;
 import com.revature.services.UserService;
-import com.revature.services.Wishlist_productsService;
-import com.revature.services.WishlistsService;
+import com.revature.services.WishlistProductService;
+import com.revature.services.WishlistService;
 
 
 @RestController
 @RequestMapping("/api/wishlist")
 public class WishlistController {
     
-    private final WishlistsService wishlistService;
-    private final Wishlist_productsService wishlist_productsService;
+    private final WishlistService wishlistService;
+    private final WishlistProductService wishlist_productsService;
     private final UserService userService;
     private final ProductService productService;
 
-    public WishlistController(WishlistsService wishlistService, Wishlist_productsService wishlist_productsService, UserService userService, ProductService productService){
+    public WishlistController(WishlistService wishlistService, WishlistProductService wishlist_productsService, UserService userService, ProductService productService){
         this.wishlistService = wishlistService;
         this.wishlist_productsService = wishlist_productsService;
         this.userService = userService;

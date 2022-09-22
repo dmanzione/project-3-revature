@@ -11,18 +11,18 @@ import com.revature.models.User;
 import com.revature.models.WishlistProduct;
 import com.revature.models.Wishlist;
 import com.revature.repositories.ProductRepository;
-import com.revature.repositories.Wishlist_productsRepository;
-import com.revature.repositories.WishlistsRepository;
+import com.revature.repositories.WishlistProductRepository;
+import com.revature.repositories.WishlistRepository;
 
 @Service
-public class WishlistsService {
+public class WishlistService {
     
-    private final WishlistsRepository wishlistRepository;
+    private final WishlistRepository wishlistRepository;
     private final ProductRepository productRepository;
-    private final Wishlist_productsRepository wishlist_productsRepository;
+    private final WishlistProductRepository wishlist_productsRepository;
     private final UserService userService;
 
-    public WishlistsService(WishlistsRepository wishlistRepository, ProductRepository productRepository, Wishlist_productsRepository wishlist_productsRepository, UserService userService) {
+    public WishlistService(WishlistRepository wishlistRepository, ProductRepository productRepository, WishlistProductRepository wishlist_productsRepository, UserService userService) {
         this.productRepository = productRepository;
         this.wishlistRepository = wishlistRepository;
         this.wishlist_productsRepository = wishlist_productsRepository;

@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import com.revature.models.Product;
 import com.revature.models.Wishlist;
 import com.revature.models.WishlistProduct;
-import com.revature.repositories.Wishlist_productsRepository;
+import com.revature.repositories.WishlistProductRepository;
 
 @Service
-public class Wishlist_productsService {
+public class WishlistProductService {
 
-    private final Wishlist_productsRepository wishlist_productsRepository;
+    private final WishlistProductRepository wishlist_productsRepository;
 
-    public Wishlist_productsService(Wishlist_productsRepository wishlist_productsRepository) {
+    public WishlistProductService(WishlistProductRepository wishlist_productsRepository) {
         this.wishlist_productsRepository = wishlist_productsRepository;
     }
 
