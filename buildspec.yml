@@ -6,6 +6,10 @@ phases:
       - echo "Building the .jar file"
       - java -version
       - mvn clean install
+  post_build:
+    commands:
+      - echo "Testing and sending report to SonarCloud"
+      - mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DDB_URL=${DB_URL} -DDB_USERNAME=${DB_USERNAME} -DDB_PASSWORD=${DB_PASSWORD} -DSONAR_TOKEN=${SONAR_TOKEN}
 
 artifacts:
   files:
