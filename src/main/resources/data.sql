@@ -46,3 +46,9 @@ INSERT INTO users (id, email, password, first_name, last_name) VALUES (
     'Test',
     'User'
 );
+
+INSERT INTO orders (id, total, user_id) VALUES (
+    1,
+    100,
+    1
+)
