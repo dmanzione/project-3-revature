@@ -4,7 +4,7 @@ import axios from 'axios';
 // Very simple, but it also doesn't give us much abstraction
 const eCommerceClient = axios.create({
   withCredentials: true,
-  baseURL: 'http://bizbazaarbizbazaarappeb-backend-env.eba-rzd5q64x.us-east-1.elasticbeanstalk.com/',
+  baseURL: 'http://localhost:8080',
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': 'http://bizbazaarbizbazaarappeb-frontend-env.eba-rzd5q64x.us-east-1.elasticbeanstalk.com',
