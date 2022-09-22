@@ -16,7 +16,7 @@ phases:
   
   post_build:
     commands:
-      - npm run sonar-scanner -DprojectName=bizbazaar-frontend -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=bizbazaar_bizbazaar-frontend -Dsonar.host.url=https://sonarcloud.io/ -Dsonar.login=${SONAR_TOKEN}
+      - npm run sonar-scanner -DprojectName=bizbazaar-frontend -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=bizbazaar_bizbazaar-frontend -Dsonar.host.url=https://sonarcloud.io/
 
 artifacts:
   files:
