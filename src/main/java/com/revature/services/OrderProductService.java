@@ -25,6 +25,10 @@ public class OrderProductService {
 		return orderProductRepository.findById(id);
 	}
 	
+	public List<OrderProduct> findAllByOrder(int orderId){
+		return orderProductRepository.findAllByOrder_Id(orderId);
+	}
+	
 	public OrderProduct save(OrderProduct orderProduct) {
 		return orderProductRepository.save(orderProduct);
 	}

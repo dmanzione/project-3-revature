@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,13 +41,21 @@ public class OrderController {
 	
 	//@Authorized
 	@GetMapping("/{user_id}")
-	public ResponseEntity<List<Order>> getOrderByUserId(@PathVariable("user_id")int user_id){
+	public ResponseEntity<List<OrderRequest>> getOrderByUserId(@PathVariable("user_id")int user_id){
 		Optional<List<Order>> optional = orderService.findByUser(user_id);
 		
 		if(!optional.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(optional.get());
+		LinkedList<OrderRequest> orderRequests = new LinkedList<>();
+		List<Order> orders = optional.get();
+		for(Order o: orders)
+		{
+			List<OrderProduct> orderProducts = orderProductService.findAllByOrder(o.getId());
+			orderRequests.add(new OrderRequest(o, orderProducts));
+		}
+		
+		return ResponseEntity.ok(orderRequests);
 	}
 	
 	//@Authorized
