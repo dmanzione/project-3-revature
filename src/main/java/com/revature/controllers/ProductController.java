@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/product")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"}, allowCredentials = "true")
 public class ProductController {
 
     private final ProductService productService;
@@ -21,13 +22,13 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @Authorized
+    //@Authorized
     @GetMapping
     public ResponseEntity<List<Product>> getInventory() {
         return ResponseEntity.ok(productService.findAll());
     }
 
-    @Authorized
+    //@Authorized
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") int id) {
         Optional<Product> optional = productService.findById(id);

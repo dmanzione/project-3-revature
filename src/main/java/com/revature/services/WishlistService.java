@@ -33,6 +33,10 @@ public class WishlistService {
         return wishlistRepository.findAll();
     }
 
+    public Optional<Wishlist> findByUserId(int user_id) {
+        return wishlistRepository.findByUser(userService.findById(user_id).get());
+    }
+
     /**
      * Returns JSON list of Products based on given user id.
      * If user does not exist, returns an empty array
