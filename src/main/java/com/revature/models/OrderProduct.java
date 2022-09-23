@@ -34,7 +34,7 @@ public class OrderProduct {
 	private Order order;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id")
-	@JsonManagedReference
+	//@JsonManagedReference
 	private Product product;	
 	private int quantity;
 	private double subtotal;
