@@ -6,6 +6,8 @@ import { DisplayProducts } from "../components/display-products/DisplayProducts"
 import { Wishlist } from '../components/wishlist/Wishlist';
 import Login from '../components/login/Login';
 import Register from '../components/register/Register';
+import OrderHistory from '../components/history/OrderHistory';
+import { UpsertProduct } from '../components/UpsertProduct/UpsertProduct';
 
 export const AppRoutes: React.FC<unknown> = () => (
   <Routes>
@@ -15,5 +17,7 @@ export const AppRoutes: React.FC<unknown> = () => (
     <Route path="/checkout" element={<Checkout />} />
     <Route path="/cart" element={<Cart />} />
     <Route path="/wishlist" element={<Wishlist />} />
+    <Route path="/history" element={<OrderHistory />} />
+    <Route path="/upsertproduct" element={<UpsertProduct />} />
   </Routes>
 )

@@ -19,7 +19,8 @@ export const UserContext = React.createContext<UserContextState>({
         id: 0,
         email: "",
         firstName: "",
-        lastName: ""
+        lastName: "",
+        password: ""
     },
     setUser: () => {}
 });
