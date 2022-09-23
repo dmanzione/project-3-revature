@@ -28,6 +28,7 @@ export default function Login() {
       window.sessionStorage.setItem("userEmail", response.payload.email);
       window.sessionStorage.setItem("userFirstName", response.payload.firstName);
       window.sessionStorage.setItem("userLastName", response.payload.lastName);
+      window.sessionStorage.setItem("userType", response.payload.typeId);
       navigate('/')
     }
   };
