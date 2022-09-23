@@ -33,13 +33,13 @@ public class OrderController {
 		this.orderProductService = orderProductService;
 	}
 
-//	@Authorized
+	@Authorized
 	@GetMapping
 	public ResponseEntity<List<Order>> getOrders() {
 		return ResponseEntity.ok(orderService.findAll());
 	}
 	
-	//@Authorized
+	@Authorized
 	@GetMapping("/{user_id}")
 	public ResponseEntity<List<OrderRequest>> getOrderByUserId(@PathVariable("user_id")int user_id){
 		Optional<List<Order>> optional = orderService.findByUser(user_id);
@@ -58,7 +58,7 @@ public class OrderController {
 		return ResponseEntity.ok(orderRequests);
 	}
 	
-	//@Authorized
+	@Authorized
 	@PostMapping
 	public ResponseEntity <OrderRequest> createOrder(@RequestBody OrderRequest newOrder)
 	{
