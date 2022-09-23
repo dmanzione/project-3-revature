@@ -23,7 +23,8 @@ public class ECommerceApplication {
 					"http://bizbazaarbizbazaarappeb-frontend-env.eba-rzd5q64x.us-east-1.elasticbeanstalk.com",
 					"http://localhost:3000"
 				)
-				.allowedMethods("DELETE", "GET", "HEAD", "OPTIONS", "POST", "PUT");
+				.allowedMethods("DELETE", "GET", "HEAD", "OPTIONS", "POST", "PUT")
+				.allowCredentials(true);
 			}
 		};
 	}
