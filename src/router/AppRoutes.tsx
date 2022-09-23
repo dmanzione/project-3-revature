@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Cart } from '../components/cart/Cart';
 import Checkout from '../components/checkout/Checkout';
 import { DisplayProducts } from "../components/display-products/DisplayProducts";
+import { Wishlist } from '../components/wishlist/Wishlist';
 import Login from '../components/login/Login';
 import Register from '../components/register/Register';
 
@@ -13,5 +14,6 @@ export const AppRoutes: React.FC<unknown> = () => (
     <Route path="/register" element={<Register />} />
     <Route path="/checkout" element={<Checkout />} />
     <Route path="/cart" element={<Cart />} />
+    <Route path="/wishlist" element={<Wishlist />} />
   </Routes>
 )
