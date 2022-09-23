@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,11 +49,12 @@ public class WishlistController {
 
     @Authorized
     @PostMapping("/addProduct")
-    public ResponseEntity<WishlistProduct> addWishlistProduct(@RequestParam("wishlist_id") int wishlist_id, @RequestParam("product_id") int product_id) {
+    public ResponseEntity<WishlistProduct> addWishlistProduct(@RequestParam("user_id") int user_id, @RequestParam("product_id") int product_id) {
+        Optional<Wishlist> wishlist = wishlistService.findByUserId(user_id);
         return ResponseEntity.status(HttpStatus.CREATED).body(wishlist_productsService.save(
             new WishlistProduct(
                 0, 
-                wishlistService.findById(wishlist_id).get(), 
+                wishlistService.findById(wishlist.get().getId()).get(), 
                 productService.findById(product_id).get())));
     }
 
@@ -67,11 +69,11 @@ public class WishlistController {
 
     @Authorized
     @DeleteMapping("/delete")
-    public ResponseEntity<WishlistProduct> deleteWishlistProduct(@RequestParam("wishlist_id") int wishlist_id, @RequestParam("product_id") int product_id) {
+    public ResponseEntity<WishlistProduct> deleteWishlistProduct(@RequestParam("user_id") int user_id, @RequestParam("product_id") int product_id) {
         
-        Wishlist wishlist = wishlistService.findById(wishlist_id).get();
+        Optional<Wishlist> wishlist = wishlistService.findByUserId(user_id);
         Product product = productService.findById(product_id).get();
-        Optional<WishlistProduct> optional = wishlist_productsService.findByWishlistAndProduct(wishlist, product);
+        Optional<WishlistProduct> optional = wishlist_productsService.findByWishlistAndProduct(wishlist.get(), product);
 
         wishlist_productsService.delete(optional.get().getId());
         
