@@ -39,7 +39,4 @@ public class OrderService {
 		return orderRepository.saveAll(orderList);
 	}
 	
-	public void delete(int id) {
-		orderRepository.deleteById(id);
-	}
 }
