@@ -8,9 +8,10 @@ import Product from '../../models/Product';
 import PaymentDetail from '../../models/PaymentDetail';
 import Address from '../../models/Address';
 import { Box, Button } from '@mui/material';
-import { apiPurchase } from '../../remote/e-commerce-api/orderService';
+
 import { CartContext } from '../../context/cart.context';
 import { ProductionQuantityLimitsSharp } from '@mui/icons-material';
+import { apiPurchase } from '../../remote/e-commerce-api/orderService';
 
 
 
@@ -45,7 +46,6 @@ export default function Review(props: reviewProps) {
         ))
       }
         
-    console.log(orderRequestDto);
     apiPurchase(orderRequestDto)
     setCart([])
     props.handleNext()
