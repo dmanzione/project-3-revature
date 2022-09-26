@@ -1,20 +1,31 @@
 import { ShoppingCartOutlined } from "@mui/icons-material";
-import { useContext } from "react";
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../context/user.context";
+import { apiLogout } from "../../remote/e-commerce-api/authService";
+
 
 const Container = styled.div`
   height: 3%;
   background-color: #c6baba;
   border-bottom: .3rem ridge black;
+  z-index:4;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div`\
   padding: 0px 20px;
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  @media (max-width:768px){
+    flex-direction: column;
+  }
   align-items: center;
   justify-content: space-between;
+  
 `;
 
 const Left = styled.div`
@@ -35,6 +46,7 @@ const Welcome = styled.h2`
   margin-top: 2.5%;
   margin-left: 3%;
   font-size: .8rem;
+  text-align: cente
 `;
 
 const Right = styled.div`
@@ -42,17 +54,36 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  
 `;
 
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
+  
+`;
+const NotificationTray = styled.div`
+  height: 350px;
+  width: 300px;
+  background-Color: gray;
+  float: right;
+  margin-top:.3rem;
+  margin-right:.3rem;
+  position: absolute;
+  right: 0%;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-top: none;
 `;
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext); //added this
+  let [ navOpen, setNav] = useState(false);
 
   const checkUser = () => {
     if(window.sessionStorage.getItem("userFirstName")){
@@ -71,8 +102,23 @@ const Navbar = () => {
   }
 
   const signOut = () =>{
-    window.sessionStorage.clear()
-    navigate('/login')
+      const response = apiLogout();
+      window.sessionStorage.clear()
+      navigate('/login')  
+  }
+
+  const returnWishList = () => {
+    if(window.sessionStorage.getItem("userEmail")){
+      return (<MenuItem onClick={() => navigate('/wishlist')}>WISHLIST</MenuItem>)
+    } 
+  }
+  const showNotifications = () =>{
+    if(navOpen == true) {
+        setNav(false);
+    } else {
+      setNav(true);
+    }
+    
   }
 
   return (
@@ -84,14 +130,22 @@ const Navbar = () => {
         <Welcome>{checkUser()}</Welcome>
         </Left>
         <Right>
-          <MenuItem>WISHLIST</MenuItem>
+          {returnWishList()}
           <MenuItem onClick={() => {navigate('/register')}}>REGISTER</MenuItem>
           <MenuItem onClick={() => {signOut()}}>{setSignInSignOut()}</MenuItem>
           <MenuItem onClick={() => {navigate('/cart')}}>
               <ShoppingCartOutlined />
           </MenuItem>
+          <MenuItem onClick={showNotifications}>
+              <NotificationsNoneIcon/>
+          </MenuItem>
+          
         </Right>
       </Wrapper>
+      {navOpen &&
+      <NotificationTray><NotificationsNoneIcon /><br /> 0</NotificationTray>
+      }
+      
     </Container>
   );
 };
