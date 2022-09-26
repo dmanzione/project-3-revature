@@ -14,25 +14,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { CartContext } from "../../context/cart.context";
 import Product from "../../models/Product";
-import { type } from "os";
-import { PropsFor } from "@mui/system";
+import { TextField } from "@mui/material";
 import { apiAddWishlistProduct, apiDeleteWishlistProduct, apiGetAllWishlistProducts } from "../../remote/e-commerce-api/wishlistService";
-  
-  const Info = styled.div`
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.5s ease;
-    cursor: pointer;
-  `;
   
   const Container = styled.div`
     flex: 1;
@@ -44,8 +27,8 @@ import { apiAddWishlistProduct, apiDeleteWishlistProduct, apiGetAllWishlistProdu
     justify-content: center;
     background-color: #f5fbfd;
     position: relative;
-    &:hover ${Info}{
-      opacity: 1;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.2);
     }
   `;
   
@@ -233,47 +216,42 @@ import { apiAddWishlistProduct, apiDeleteWishlistProduct, apiGetAllWishlistProdu
       setStarClicked(!starClicked)
     }
 
+    function updateQuantity(event: any) {
+      props.product.quantity = +event.target.value > 0 ? +event.target.value : 1
+    }
+
     return (
       <Container>
         <Circle />
-        <Image src={props.product.image} />
-        <Info>
-          <Icon>
-            <ShoppingCartOutlined onClick={() => {addItemToCart({...props.product, quantity: 1})}} />
-          </Icon>
-          <Icon>
-            <SearchOutlined onClick={handleOpen} />
-          </Icon>
-          <IconStar starClicked={starClicked} starDisplay={starDisplay} onClick={() => {handleWishlistClick()}}>
-            <StarOutlined />
-          </IconStar>
-        <div>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                {props.product.name}
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                {props.product.description}<br />
-                ${props.product.price}
-              </Typography>
+        <Image src={props.product.image} onClick={handleOpen} />
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              {props.product.name}
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              {props.product.description}<br />
+              ${props.product.price}
+            </Typography>
+            <br />
+            <form>
+              <TextField id="outlined-number" label="Number" type="number" onChange={(event) => {updateQuantity(event)}} defaultValue="1" InputLabelProps={{shrink: true}} InputProps={{inputProps: {min: 1}}} />
               <BoxIcons>
                 <Icon>
-                  <ShoppingCartOutlined onClick={() => {addItemToCart({...props.product, quantity: 1})}} />
+                  <ShoppingCartOutlined onClick={() => {addItemToCart({...props.product})}} />
                 </Icon>
                 <IconStar starClicked={starClicked} starDisplay={starDisplay} onClick={() => {handleWishlistClick()}}>
                   <StarOutlined />
                 </IconStar>
-              </BoxIcons>
-            </Box>
-          </Modal>
-        </div>
-        </Info>
+              </BoxIcons>              
+            </form>
+          </Box>
+        </Modal>
       </Container>
     );
   };
