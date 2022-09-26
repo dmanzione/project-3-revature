@@ -4,6 +4,8 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../context/user.context";
+import { apiLogout } from "../../remote/e-commerce-api/authService";
+
 
 const Container = styled.div`
   height: 3%;
@@ -12,9 +14,15 @@ const Container = styled.div`
   z-index:4;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div`\
   padding: 0px 20px;
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  @media (max-width:768px){
+    flex-direction: column;
+  }
   align-items: center;
   justify-content: space-between;
   
@@ -38,6 +46,7 @@ const Welcome = styled.h2`
   margin-top: 2.5%;
   margin-left: 3%;
   font-size: .8rem;
+  text-align: cente
 `;
 
 const Right = styled.div`
@@ -93,8 +102,15 @@ const Navbar = () => {
   }
 
   const signOut = () =>{
-    window.sessionStorage.clear()
-    navigate('/login')
+      const response = apiLogout();
+      window.sessionStorage.clear()
+      navigate('/login')  
+  }
+
+  const returnWishList = () => {
+    if(window.sessionStorage.getItem("userEmail")){
+      return (<MenuItem onClick={() => navigate('/wishlist')}>WISHLIST</MenuItem>)
+    } 
   }
   const showNotifications = () =>{
     if(navOpen == true) {
@@ -114,7 +130,7 @@ const Navbar = () => {
         <Welcome>{checkUser()}</Welcome>
         </Left>
         <Right>
-          <MenuItem>WISHLIST</MenuItem>
+          {returnWishList()}
           <MenuItem onClick={() => {navigate('/history')}}>ORDER HISTORY</MenuItem>
           <MenuItem onClick={() => {navigate('/register')}}>REGISTER</MenuItem>
           <MenuItem onClick={() => {signOut()}}>{setSignInSignOut()}</MenuItem>
