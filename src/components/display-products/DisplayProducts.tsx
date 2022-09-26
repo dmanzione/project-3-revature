@@ -5,6 +5,7 @@ import { apiGetAllProducts } from '../../remote/e-commerce-api/productService';
 import Navbar from '../navbar/Narbar';
 import { ProductCard } from "./ProductCard";
 import AddCardIcon from '@mui/icons-material/AddCard';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
     padding: 20px;
@@ -20,6 +21,7 @@ const Button = styled.button`
 `;
 
 export const DisplayProducts = () => {
+  const navigate = useNavigate();
 
   const [products, setProducts] = useState<Product[]>([])
 
@@ -33,14 +35,14 @@ export const DisplayProducts = () => {
 
   function addProduct() {
     console.log('add product');
-    
+    navigate('/insertproduct');
   }
 
   function displayAddProductCard() {    
     if (window.sessionStorage.getItem('userType') === '3') {
         return (
           <Container onClick={() => addProduct()}>
-          <Button>
+          <Button >
             <AddCardIcon />
             <p>Add Item</p>
          </Button>
