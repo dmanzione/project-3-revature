@@ -8,8 +8,9 @@ import Product from '../../models/Product';
 import PaymentDetail from '../../models/PaymentDetail';
 import Address from '../../models/Address';
 import { Box, Button } from '@mui/material';
-import { apiPurchase } from '../../remote/e-commerce-api/productService';
+import { apiPurchase } from '../../remote/e-commerce-api/orderService';
 import { CartContext } from '../../context/cart.context';
+import { ProductionQuantityLimitsSharp } from '@mui/icons-material';
 
 
 
@@ -26,11 +27,26 @@ export default function Review(props: reviewProps) {
 
   const handleSubmit = (event: React.MouseEvent) => {
     event.preventDefault();
-    let productPurchaseDtos = cart.map((product) => ({
-      id: product.id,
-      quantity: product.quantity
-    }))
-    apiPurchase(productPurchaseDtos)
+    let orderRequestDto = {
+      order: {
+      user:{
+        id: Number(window.sessionStorage.getItem("userID"))
+      },
+      total : cart.reduce((sum, a) => sum + a.price * a.quantity, 0)
+      },
+      orderProducts : cart.map((product) => (
+        {
+          product: {
+            id: product.id
+          },
+          quantity: product.quantity,
+          subtotal: product.price * product.quantity
+        }
+        ))
+      }
+        
+    console.log(orderRequestDto);
+    apiPurchase(orderRequestDto)
     setCart([])
     props.handleNext()
   }

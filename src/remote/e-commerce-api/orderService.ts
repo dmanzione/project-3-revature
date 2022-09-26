@@ -10,8 +10,8 @@ export const apiGetUserOrders= async (id: number): Promise<eCommerceApiResponse>
     return { status: response.status, payload: response.data };
 }
 
-export const apiPurchase = async (OrderRequest: {id: number, quantity: number}[]): Promise<eCommerceApiResponse> => {
-    const response = await eCommerceClient.patch<any>(
+export const apiPurchase = async (OrderRequest: any): Promise<eCommerceApiResponse> => {
+    const response = await eCommerceClient.post<any>(
         `${baseURL}`,
         OrderRequest
     );
