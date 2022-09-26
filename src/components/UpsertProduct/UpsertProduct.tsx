@@ -1,6 +1,9 @@
+import { InsertProduct } from "./InsertProduct"
 
 export const UpsertProduct = () => {
   return (
-    <div>AddProduct</div>
+    <div>
+      <InsertProduct />
+    </div>
   )
 }
