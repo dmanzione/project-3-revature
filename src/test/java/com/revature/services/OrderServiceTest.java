@@ -60,7 +60,7 @@ class OrderServiceTest {
 	}
 	
 	@Test
-	void fundByUser_test_pass() {
+	void findByUser_test_pass() {
 		User user = new User();
 		user.setId(1);
 		order2.setUser(user);
