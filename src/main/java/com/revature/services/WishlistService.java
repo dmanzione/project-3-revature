@@ -47,6 +47,11 @@ public class WishlistService {
         
         Optional<Wishlist> wishlist = wishlistRepository.findByUser(userService.findById(user_id).get());
 
+        if(!wishlist.isPresent()) {
+            List<Product> emptyList = new ArrayList<Product>();
+            return emptyList;
+        }
+
         List<WishlistProduct> wishlistProducts = wishlist_productsRepository.findByWishlist(wishlist.get());
         
         List<Product> resultList = new ArrayList<Product>();
