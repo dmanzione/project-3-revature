@@ -7,19 +7,10 @@ const baseURL = "/api/wishlist"
 
 // Get all Products from Wishlist
 export const apiGetAllWishlistProducts =async (userId: Number): Promise<eCommerceApiResponse> => {
-    let response;
-
-    try {
-        response = await eCommerceClient.get<any>(
-            `${baseURL}/${userId}`
-        );
-    } catch (error) {
-        response = await eCommerceClient.get<any>(
-            `${baseURL}/1`
-        );  
-    }
-
-    return { status: response.status, payload: response.data };    
+    const response = await eCommerceClient.get<any>(
+        `${baseURL}/${userId}`
+    );
+    return { status: response.status, payload: response.data };
 }
 
 
