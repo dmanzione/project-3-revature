@@ -37,7 +37,4 @@ public class OrderProductService {
 		return orderProductRepository.saveAll(orderProductList);
 	}
 	
-	public void delete(int id) {
-		orderProductRepository.deleteById(id);
-	}
 }

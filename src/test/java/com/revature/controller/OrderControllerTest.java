@@ -80,6 +80,15 @@ class OrderControllerTest {
 	}
 	
 	@Test
+	void getOrderByUserId_test_fail() {
+		when(mockOrderService.findByUser(1)).thenReturn(Optional.ofNullable(null));
+		ResponseEntity<List<OrderRequest>> expected = ResponseEntity.notFound().build();
+		ResponseEntity<List<OrderRequest>> actual = orderController.getOrderByUserId(1);
+		Assertions.assertEquals(expected, actual);
+		
+	}
+	
+	@Test
 	void createOrder_test_pass() {
 		
 		when(mockOrderService.save(order1)).thenReturn(order1);

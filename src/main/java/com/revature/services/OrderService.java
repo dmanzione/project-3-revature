@@ -1,6 +1,6 @@
 package com.revature.services;
 
-import java.util.LinkedList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +39,4 @@ public class OrderService {
 		return orderRepository.saveAll(orderList);
 	}
 	
-	public void delete(int id) {
-		orderRepository.deleteById(id);
-	}
 }

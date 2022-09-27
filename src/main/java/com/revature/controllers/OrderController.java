@@ -58,7 +58,7 @@ public class OrderController {
 		return ResponseEntity.ok(orderRequests);
 	}
 	
-	@Authorized
+	//@Authorized
 	@PostMapping
 	public ResponseEntity <OrderRequest> createOrder(@RequestBody OrderRequest newOrder)
 	{
