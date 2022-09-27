@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { apiRegister } from '../../remote/e-commerce-api/authService';
+import { apiAddWishlistRecord } from '../../remote/e-commerce-api/wishlistService';
 import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
@@ -22,7 +23,12 @@ export default function Register() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const response = await apiRegister(`${data.get('firstName')}`, `${data.get('lastName')}`, `${data.get('email')}`, `${data.get('password')}`)
-    if (response.status >= 200 && response.status < 300) navigate('/login')
+    if (response.status >= 200 && response.status < 300){
+      const addWishResponse = await apiAddWishlistRecord(response.payload.id);
+      if (addWishResponse.status >= 200 && addWishResponse.status < 300){
+        navigate('/login')
+      }
+    } 
   };
 
   return (

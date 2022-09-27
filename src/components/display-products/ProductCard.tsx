@@ -150,6 +150,14 @@ export const ProductCard = (props: productProps) => {
       }
     }
   }
+  
+// useEffect: When triggerred, checks and sets the wishlist star icon
+    React.useEffect(()=>{
+      isUserCustomer();
+      isWishlistProduct();
+      gatherAllWishlistProducts();
+    },[triggerEffect])
+    
   function editButton(product:Product) {
     if (window.sessionStorage.getItem('userType') === '1') {
       const toUpsertProduct = () => {
