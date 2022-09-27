@@ -151,8 +151,8 @@ import { apiAddWishlistProduct, apiDeleteWishlistProduct, apiGetAllWishlistProdu
     // useEffect: When triggerred, checks and sets the wishlist star icon
     React.useEffect(()=>{
       isUserCustomer();
-      gatherAllWishlistProducts();
       isWishlistProduct();
+      gatherAllWishlistProducts();
     },[triggerEffect])
 
     // API Call: Get All Products from Wishlist Database
