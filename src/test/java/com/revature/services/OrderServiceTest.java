@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.revature.models.Order;
+import com.revature.models.User;
 import com.revature.repositories.OrderRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -56,6 +57,18 @@ class OrderServiceTest {
 		when(mockOrderRepository.findById(1)).thenReturn(Optional.ofNullable(order1));
 		Optional<Order> actual = orderService.findById(1);
 		Assertions.assertEquals(actual, oOrder1);
+	}
+	
+	@Test
+	void findByUser_test_pass() {
+		User user = new User();
+		user.setId(1);
+		order2.setUser(user);
+		order3.setUser(user);
+		Optional<List<Order>> oOrder1 = Optional.ofNullable(orderList2);
+		when(mockOrderRepository.findAllByUser_Id(1)).thenReturn(orderList2);
+		Optional<List<Order>> actual = orderService.findByUser(1);
+		Assertions.assertEquals(oOrder1, actual);
 	}
 	
 	@Test

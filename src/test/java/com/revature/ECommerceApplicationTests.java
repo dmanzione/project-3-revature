@@ -11,7 +11,9 @@ class ECommerceApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Assertions.assertEquals(true, true);
+		Boolean expected = true;
+		Boolean actual = true;
+		Assertions.assertEquals(expected, actual);
 	}
 
 }
