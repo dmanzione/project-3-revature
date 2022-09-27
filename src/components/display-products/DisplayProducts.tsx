@@ -7,6 +7,8 @@ import { ProductCard } from "./ProductCard";
 import AddCardIcon from '@mui/icons-material/AddCard';
 import { useNavigate } from 'react-router-dom';
 
+
+
 const Container = styled.div`
     padding: 20px;
     display: flex;

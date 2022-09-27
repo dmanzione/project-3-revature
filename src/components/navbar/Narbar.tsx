@@ -131,6 +131,7 @@ const Navbar = () => {
         </Left>
         <Right>
           {returnWishList()}
+          <MenuItem onClick={() => {navigate('/history')}}>ORDER HISTORY</MenuItem>
           <MenuItem onClick={() => {navigate('/register')}}>REGISTER</MenuItem>
           <MenuItem onClick={() => {signOut()}}>{setSignInSignOut()}</MenuItem>
           <MenuItem onClick={() => {navigate('/cart')}}>
