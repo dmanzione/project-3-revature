@@ -8,7 +8,6 @@ import Login from '../components/login/Login';
 import Register from '../components/register/Register';
 import OrderHistory from '../components/history/OrderHistory';
 import { UpsertProduct } from '../components/UpsertProduct/UpsertProduct';
-import { InsertProduct } from '../components/UpsertProduct/InsertProduct';
 
 export const AppRoutes: React.FC<unknown> = () => (
   <Routes>
@@ -19,7 +18,6 @@ export const AppRoutes: React.FC<unknown> = () => (
     <Route path="/cart" element={<Cart />} />
     <Route path="/wishlist" element={<Wishlist />} />
     <Route path="/history" element={<OrderHistory />} />
-    <Route path="/insertproduct" element={<InsertProduct />} />
-    {/* <Route path="/upsertproduct" element={<UpsertProduct />} /> */}
+    <Route path="/upsertproduct" element={<UpsertProduct />} />
   </Routes>
 )

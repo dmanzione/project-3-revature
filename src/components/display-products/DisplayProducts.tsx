@@ -35,11 +35,11 @@ export const DisplayProducts = () => {
 
   function addProduct() {
     console.log('add product');
-    navigate('/insertproduct');
+    navigate('/UpsertProduct',{state:{}});
   }
 
   function displayAddProductCard() {    
-    if (window.sessionStorage.getItem('userType') === '3') {
+    if (window.sessionStorage.getItem('userType') === '1') {
         return (
           <Container onClick={() => addProduct()}>
           <Button >
