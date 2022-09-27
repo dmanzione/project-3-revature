@@ -9,6 +9,8 @@ import styled from "styled-components";
 import { CartContext } from "../../context/cart.context";
 import Product from "../../models/Product";
 import { TextField } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import {  useNavigate } from "react-router-dom";
 import {
   apiAddWishlistProduct,
   apiDeleteWishlistProduct,
@@ -105,6 +107,7 @@ export interface productProps {
 }
 
 export const ProductCard = (props: productProps) => {
+  const navigate = useNavigate();
   const { cart, setCart } = useContext(CartContext);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -147,13 +150,32 @@ export const ProductCard = (props: productProps) => {
       }
     }
   }
-
+  
 // useEffect: When triggerred, checks and sets the wishlist star icon
     React.useEffect(()=>{
       isUserCustomer();
       isWishlistProduct();
       gatherAllWishlistProducts();
     },[triggerEffect])
+    
+  function editButton(product:Product) {
+    if (window.sessionStorage.getItem('userType') === '1') {
+      const toUpsertProduct = () => {
+        navigate('/UpsertProduct', {state:{product}})
+      }
+      return (
+        <Icon>
+          <EditIcon onClick={() => toUpsertProduct()} />
+        </Icon>
+      )
+    }
+  }
+  // useEffect: When triggerred, checks and sets the wishlist star icon
+  React.useEffect(() => {
+    isUserCustomer();
+    gatherAllWishlistProducts();
+    isWishlistProduct();
+  }, [triggerEffect]);
 
   // API Call: Get All Products from Wishlist Database
   const gatherAllWishlistProducts = async () => {
@@ -258,6 +280,7 @@ export const ProductCard = (props: productProps) => {
                   }}
                 />
               </Icon>
+              {editButton(props.product)}
               <IconStar
                 starClicked={starClicked}
                 starDisplay={starDisplay}
