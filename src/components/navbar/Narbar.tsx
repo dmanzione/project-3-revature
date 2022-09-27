@@ -82,7 +82,6 @@ const NotificationTray = styled.div`
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext); //added this
   let [ navOpen, setNav] = useState(false);
 
   const checkUser = () => {
@@ -113,7 +112,7 @@ const Navbar = () => {
     } 
   }
   const showNotifications = () =>{
-    if(navOpen == true) {
+    if(navOpen) {
         setNav(false);
     } else {
       setNav(true);
