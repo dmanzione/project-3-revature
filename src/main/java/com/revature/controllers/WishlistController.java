@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.annotations.Authorized;
 import com.revature.models.Product;
 import com.revature.models.WishlistProduct;
 import com.revature.models.Wishlist;
@@ -41,13 +40,11 @@ public class WishlistController {
         this.productService = productService;
     }
 
-    @Authorized
     @GetMapping("/{user_id}")
     public ResponseEntity<List<Product>> getWishlistInventoryByUserId(@PathVariable int user_id) {
         return ResponseEntity.ok(wishlistService.getAllWishlistProducts(user_id));
     }
 
-    @Authorized
     @PostMapping("/addProduct")
     public ResponseEntity<WishlistProduct> addWishlistProduct(@RequestParam("user_id") int user_id, @RequestParam("product_id") int product_id) {
         Optional<Wishlist> wishlist = wishlistService.findByUserId(user_id);
@@ -58,7 +55,6 @@ public class WishlistController {
                 productService.findById(product_id).get())));
     }
 
-    @Authorized
     @PostMapping("/addWishlist/{user_id}")
     public ResponseEntity<Wishlist> addWishlistRecord(@PathVariable int user_id) {
         return ResponseEntity.status(HttpStatus.CREATED).body(wishlistService.save(
@@ -67,7 +63,6 @@ public class WishlistController {
                 userService.findById(user_id).get())));
     }
 
-    @Authorized
     @DeleteMapping("/delete")
     public ResponseEntity<WishlistProduct> deleteWishlistProduct(@RequestParam("user_id") int user_id, @RequestParam("product_id") int product_id) {
         
