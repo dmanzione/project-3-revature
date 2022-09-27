@@ -1,4 +1,4 @@
-import Order from "../../models/Order"
+
 import OrderRequest from "../../models/OrderRequest"
 
 function OrderBox(props:OrderRequest) {
