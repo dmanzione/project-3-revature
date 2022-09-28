@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.Product;
+import com.revature.models.User;
 import com.revature.models.WishlistProduct;
 import com.revature.models.Wishlist;
 import com.revature.services.ProductService;
@@ -29,48 +29,86 @@ import com.revature.services.WishlistService;
 public class WishlistController {
     
     private final WishlistService wishlistService;
-    private final WishlistProductService wishlist_productsService;
+    private final WishlistProductService wishlistProductsService;
     private final UserService userService;
     private final ProductService productService;
 
-    public WishlistController(WishlistService wishlistService, WishlistProductService wishlist_productsService, UserService userService, ProductService productService){
+    public WishlistController(WishlistService wishlistService, WishlistProductService wishlistProductsService, UserService userService, ProductService productService){
         this.wishlistService = wishlistService;
-        this.wishlist_productsService = wishlist_productsService;
+        this.wishlistProductsService = wishlistProductsService;
         this.userService = userService;
         this.productService = productService;
     }
 
-    @GetMapping("/{user_id}")
-    public ResponseEntity<List<Product>> getWishlistInventoryByUserId(@PathVariable int user_id) {
-        return ResponseEntity.ok(wishlistService.getAllWishlistProducts(user_id));
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<Product>> getWishlistInventoryByUserId(@PathVariable int userId) {
+        return ResponseEntity.ok(wishlistService.getAllWishlistProducts(userId));
     }
 
     @PostMapping("/addProduct")
-    public ResponseEntity<WishlistProduct> addWishlistProduct(@RequestParam("user_id") int user_id, @RequestParam("product_id") int product_id) {
-        Optional<Wishlist> wishlist = wishlistService.findByUserId(user_id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(wishlist_productsService.save(
+    public ResponseEntity<WishlistProduct> addWishlistProduct(@RequestParam("userId") int userId, @RequestParam("productId") int productId) {
+        Optional<Wishlist> wishlistUser = wishlistService.findByUserId(userId);
+
+        if(!wishlistUser.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+
+        Optional<Wishlist> wishlistRecord = wishlistService.findById(wishlistUser.get().getId());
+
+        if(!wishlistRecord.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Optional<Product> wishlistProduct = productService.findById(productId);
+
+        if(!wishlistProduct.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(wishlistProductsService.save(
             new WishlistProduct(
                 0, 
-                wishlistService.findById(wishlist.get().getId()).get(), 
-                productService.findById(product_id).get())));
+                wishlistRecord.get(),
+                wishlistProduct.get())));
     }
 
-    @PostMapping("/addWishlist/{user_id}")
-    public ResponseEntity<Wishlist> addWishlistRecord(@PathVariable int user_id) {
+    @PostMapping("/addWishlist/{userId}")
+    public ResponseEntity<Wishlist> addWishlistRecord(@PathVariable int userId) {
+
+        Optional<User> optional = userService.findById(userId);
+
+        if(!optional.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(wishlistService.save(
             new Wishlist(
                 0, 
-                userService.findById(user_id).get())));
+                optional.get())));
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<WishlistProduct> deleteWishlistProduct(@RequestParam("user_id") int user_id, @RequestParam("product_id") int product_id) {
+    public ResponseEntity<WishlistProduct> deleteWishlistProduct(@RequestParam("userId") int userId, @RequestParam("productId") int productId) {
         
-        Optional<Wishlist> wishlist = wishlistService.findByUserId(user_id);
-        Product product = productService.findById(product_id).get();
-        Optional<WishlistProduct> optional = wishlist_productsService.findByWishlistAndProduct(wishlist.get(), product);
+        Optional<Wishlist> wishlist = wishlistService.findByUserId(userId);
 
-        wishlist_productsService.delete(optional.get().getId());
+        if(!wishlist.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+
+        Optional<Product> product = productService.findById(productId);
+
+        if(!product.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+
+        Optional<WishlistProduct> optional = wishlistProductsService.findByWishlistAndProduct(wishlist.get(), product.get());
+
+        if(!optional.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+
+        wishlistProductsService.delete(optional.get().getId());
         
         return ResponseEntity.ok(optional.get());
     }
