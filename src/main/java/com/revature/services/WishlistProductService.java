@@ -13,34 +13,34 @@ import com.revature.repositories.WishlistProductRepository;
 @Service
 public class WishlistProductService {
 
-    private final WishlistProductRepository wishlist_productsRepository;
+    private final WishlistProductRepository wishlistProductsRepository;
 
-    public WishlistProductService(WishlistProductRepository wishlist_productsRepository) {
-        this.wishlist_productsRepository = wishlist_productsRepository;
+    public WishlistProductService(WishlistProductRepository wishlistProductsRepository) {
+        this.wishlistProductsRepository = wishlistProductsRepository;
     }
 
     public List<WishlistProduct> findAll() {
-        return wishlist_productsRepository.findAll();
+        return wishlistProductsRepository.findAll();
     }
 
     public Optional<WishlistProduct> findById(int id) {
-        return wishlist_productsRepository.findById(id);
+        return wishlistProductsRepository.findById(id);
     }
 
     public Optional<WishlistProduct> findByWishlistAndProduct(Wishlist wishlist, Product product) {
-        return wishlist_productsRepository.findByWishlistAndProduct(wishlist, product);
+        return wishlistProductsRepository.findByWishlistAndProduct(wishlist, product);
     }
 
     public WishlistProduct save(WishlistProduct wishlist) {
-        return wishlist_productsRepository.save(wishlist);
+        return wishlistProductsRepository.save(wishlist);
     }
     
     public List<WishlistProduct> saveAll(List<WishlistProduct> wishlistList) {
-    	return wishlist_productsRepository.saveAll(wishlistList);
+    	return wishlistProductsRepository.saveAll(wishlistList);
     }
 
     public void delete(int id) {
-        wishlist_productsRepository.deleteById(id);
+        wishlistProductsRepository.deleteById(id);
     }
     
 }

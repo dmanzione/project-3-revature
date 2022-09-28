@@ -19,13 +19,13 @@ public class WishlistService {
     
     private final WishlistRepository wishlistRepository;
     private final ProductRepository productRepository;
-    private final WishlistProductRepository wishlist_productsRepository;
+    private final WishlistProductRepository wishlistProductsRepository;
     private final UserService userService;
 
-    public WishlistService(WishlistRepository wishlistRepository, ProductRepository productRepository, WishlistProductRepository wishlist_productsRepository, UserService userService) {
+    public WishlistService(WishlistRepository wishlistRepository, ProductRepository productRepository, WishlistProductRepository wishlistProductsRepository, UserService userService) {
         this.productRepository = productRepository;
         this.wishlistRepository = wishlistRepository;
-        this.wishlist_productsRepository = wishlist_productsRepository;
+        this.wishlistProductsRepository = wishlistProductsRepository;
         this.userService = userService;
     }
 
@@ -33,8 +33,15 @@ public class WishlistService {
         return wishlistRepository.findAll();
     }
 
-    public Optional<Wishlist> findByUserId(int user_id) {
-        return wishlistRepository.findByUser(userService.findById(user_id).get());
+    public Optional<Wishlist> findByUserId(int userId) {
+
+        Optional<User> optionalUser = userService.findById(userId);
+
+        if(!optionalUser.isPresent()){
+            return findByUserId(1);
+        }
+
+        return wishlistRepository.findByUser(optionalUser.get());
     }
 
     /**
@@ -43,18 +50,23 @@ public class WishlistService {
      * @param user_id
      * @return
      */
-    public List<Product> getAllWishlistProducts(int user_id) {
+    public List<Product> getAllWishlistProducts(int userId) {
+
+        Optional<User> optionalUser = userService.findById(userId);
+
+        if(!optionalUser.isPresent()){
+            return getAllWishlistProducts(1);
+        }
         
-        Optional<Wishlist> wishlist = wishlistRepository.findByUser(userService.findById(user_id).get());
+        Optional<Wishlist> wishlist = wishlistRepository.findByUser(optionalUser.get());
 
         if(!wishlist.isPresent()) {
-            List<Product> emptyList = new ArrayList<Product>();
-            return emptyList;
+            return new ArrayList<>();
         }
 
-        List<WishlistProduct> wishlistProducts = wishlist_productsRepository.findByWishlist(wishlist.get());
+        List<WishlistProduct> wishlistProducts = wishlistProductsRepository.findByWishlist(wishlist.get());
         
-        List<Product> resultList = new ArrayList<Product>();
+        List<Product> resultList = new ArrayList<>();
         for (WishlistProduct wishlistProduct : wishlistProducts) {
             resultList.add(productRepository.getById(wishlistProduct.getProduct().getId()));
         }
