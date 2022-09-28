@@ -80,7 +80,7 @@ const Navbar = () => {
   let [navOpen, setNav] = useState(false);
 
   const signOut = () => {
-    const response = apiLogout();
+    apiLogout();
     window.sessionStorage.clear();
     navigate("/login");
   };
