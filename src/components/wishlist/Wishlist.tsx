@@ -178,14 +178,14 @@ export const Wishlist = () => {
         const tempWishList:ProductModel[] = []
         if(id !== null){
             const response = await apiGetAllWishlistProducts(Number.parseInt(id));
-            for(let i=0; i<response.payload.length; i++){
+            for(const element of response.payload){
                 tempWishList.push({
-                    id: response.payload[i].id,
-                    name: response.payload[i].name,
-                    quantity: response.payload[i].quantity,
-                    price: response.payload[i].price,
-                    description: response.payload[i].description,
-                    image: response.payload[i].image
+                    id: element.id,
+                    name: element.name,
+                    quantity: element.quantity,
+                    price: element.price,
+                    description: element.description,
+                    image: element.image
                 })
             }
 

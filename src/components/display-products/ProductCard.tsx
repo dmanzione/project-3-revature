@@ -144,8 +144,8 @@ export const ProductCard = (props: productProps) => {
 
   // Simulates star icon click or leave it blank
   function isWishlistProduct() {
-    for (let i = 0; i < wishlist.length; i++) {
-      if (wishlist[i].id == props.product.id) {
+    for (const element of wishlist) {
+      if (element.id == props.product.id) {
         setStarClicked(true);
       }
     }
@@ -184,14 +184,14 @@ export const ProductCard = (props: productProps) => {
 
     if (id !== null) {
       const response = await apiGetAllWishlistProducts(Number.parseInt(id));
-      for (let i = 0; i < response.payload.length; i++) {
+      for (const element of response.payload) {
         tempWishList.push({
-          id: response.payload[i].id,
-          name: response.payload[i].name,
-          quantity: response.payload[i].quantity,
-          price: response.payload[i].price,
-          description: response.payload[i].description,
-          image: response.payload[i].image,
+          id: element.id,
+          name: element.name,
+          quantity: element.quantity,
+          price: element.price,
+          description: element.description,
+          image: element.image,
         });
       }
       setWishlist((wishlist) => tempWishList);
