@@ -1,0 +1,164 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<title>Tech Support</title>
+
+	<style>
+		.message {
+			margin-bottom: 10%;
+
+		}
+
+		#messages {
+			overflow: scroll !Important;
+		}
+	</style>
+</head>
+
+
+
+<body>
+	<button id="modalBtn"
+		onclick="document.getElementById('chatMod').style.display='block';document.getElementById('modalBtn').style.display='none'; "
+		class="w3-button w3-black" style="display: none;">Open
+		Modal</button>
+
+	<div id="chatMod" class="w3-display-container w3-border w3-animate" resizable="true" style="display: block;">
+		<button class="w3-button w3-blue  w3-display-topright"
+			onclick="document.getElementById('chatMod').style.display='none';document.getElementById('modalBtn').style.display='block';">Close</button>
+		<div class="w3-blue w3-container">
+			<h3>Tech Support</h3>
+
+		</div>
+		<div class="w3-white w3-container w3-padding-64" id="messages">
+			
+
+		</div>
+		<div class="w3-bottom">
+			<form id="form" class="" action="">
+
+				<input type="text" id="input"
+					class="w3-input w3-block w3-card w3-display-bottommiddle w3-border-top w3-topbar"
+					placeholder="Type message here..."> <input type="submit" id="submitBtn"
+					class="w3-button w3-display-bottomright w3-dark-gray">
+			</form>
+		</div>
+
+		<script src="/socket.io/socket.io.js"></script>
+
+		<script>
+			var socket = io();
+
+			var messages = document.getElementById('messages');
+
+			var form = document.getElementById('form');
+			var input = document.getElementById('input');
+
+			form.addEventListener('submit', function (e) {
+				e.preventDefault();
+				if (input.value) {
+					socket.emit('message', input.value);
+					input.value = '';
+				}
+			});
+			socket.on('message', function (msg) {
+				console.log("Someone sent a message: " + msg)
+				let blockquote = document.createElement('blockquote');
+				blockquote.className = "w3-round w3-container w3-leftbar w3-sand ";
+				let p = document.createElement("p");
+				console.log(p)
+				p.className = "w3-large w3-margin-left w3-left w3-block";
+				p.textContent = msg.trim();
+				console.log(p)
+				let handler = document.createElement("p");
+				handler.className = "w3-medium w3-right w3-display-bottom"
+				let signature = document.createElement("i");
+				signature.className = "w3-text-right";
+				signature.textContent = "";
+
+				if (sessionStorage.userFirstName == null) {
+
+					signature.textContent = "- client id " + socket.id;
+				}
+				let icon = document.createElement("i");
+				icon.className = "material-icons";
+				icon.textContent = "close";
+				icon.addEventListener("click", function (e) {
+					e.target.parentElement.remove();
+				}
+				);
+
+				handler.appendChild(signature);
+				blockquote.appendChild(p);
+
+				blockquote.appendChild(handler);
+				blockquote.appendChild(icon);
+
+				messages.appendChild(blockquote);
+
+				messages.appendChild(document.createElement("br"));
+
+
+
+
+				window.scrollTo(0, document.body.scrollHeight);
+			});
+
+
+
+			socket.on("connect", function () {
+				console.log("your id is " + socket.id)
+
+			});
+
+			//handle announcements sent to all connected clients
+			socket.on('announcement', function (announcement) {
+				messages = document.getElementById('messages');
+				let div = document.createElement('div');
+				div.className = "w3-panel w3-pale-green";
+				let header = document.createElement('h3')
+				header.textContent = "New Announcement";
+				let p = document.createElement('p');
+				p.textContent = announcement;
+				let close = document.createElement("span");
+				close.className = "w3-right w3-small w3-bold";
+				close.style = "opacity:1; transition: opacity 0.6s;"
+				let icon = document.createElement("i");
+				icon.className = "w3-right";
+				icon.textContent = "close";
+				icon.addEventListener("click", function (e) {
+					e.target.parentElement.remove();
+				});
+				close.appendChild(icon)
+				console.log(close)
+				p.appendChild(close);
+				div.appendChild(header);
+				div.appendChild(p);
+				div.appendChild(close);
+				div.appendChild(icon);
+				messages.appendChild(div);
+				console.log(div)
+				window.scrollTo(0, document.body.scrollHeight);
+			})
+
+			document.getElementById('modalBtn').addEventListener("click", function (e) {
+				if (!socket.connected) {
+					socket.connect()
+					console.log(socket.id + "  is connected: " + socket.connected)
+				}
+			})
+
+		</script>
+		<script>
+		</script>
+
+
+
+	</div>
+</body>
+
+</html>
