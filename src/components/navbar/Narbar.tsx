@@ -1,17 +1,15 @@
 import { ShoppingCartOutlined } from "@mui/icons-material";
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import { useContext, useState } from "react";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { UserContext } from "../../context/user.context";
 import { apiLogout } from "../../remote/e-commerce-api/authService";
-
 
 const Container = styled.div`
   height: 3%;
   background-color: #c6baba;
-  border-bottom: .3rem ridge black;
-  z-index:4;
+  border-bottom: 0.3rem ridge black;
+  z-index: 4;
 `;
 
 const Wrapper = styled.div`\
@@ -38,15 +36,14 @@ const Logo = styled.h1`
   font-weight: bold;
   cursor: pointer;
   text-decoration: underline;
-  padding: 0 .8rem;
-
+  padding: 0 0.8rem;
 `;
 
 const Welcome = styled.h2`
   margin-top: 2.5%;
   margin-left: 3%;
-  font-size: .8rem;
-  text-align: cente
+  font-size: 0.8rem;
+  text-align: cente;
 `;
 
 const Right = styled.div`
@@ -54,22 +51,20 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  
 `;
 
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
-  
 `;
 const NotificationTray = styled.div`
   height: 350px;
   width: 300px;
-  background-Color: gray;
+  background-color: gray;
   float: right;
-  margin-top:.3rem;
-  margin-right:.3rem;
+  margin-top: 0.3rem;
+  margin-right: 0.3rem;
   position: absolute;
   right: 0%;
   z-index: 3;
@@ -82,70 +77,60 @@ const NotificationTray = styled.div`
 
 const Navbar = () => {
   const navigate = useNavigate();
-  let [ navOpen, setNav] = useState(false);
+  let [navOpen, setNav] = useState(false);
 
-  const checkUser = () => {
-    if(window.sessionStorage.getItem("userFirstName")){
-      return "Welcome, " + window.sessionStorage.getItem("userFirstName") + "!"
-    } else {
-      return "Shopping as Guest User"
-    }
-  }
+  const signOut = () => {
+    const response = apiLogout();
+    window.sessionStorage.clear();
+    navigate("/login");
+  };
 
-  const setSignInSignOut = () => {
-    if(window.sessionStorage.getItem("userEmail")){
-      return "SIGN OUT"
-    } else {
-      return "SIGN IN"
-    }
-  }
-
-  const signOut = () =>{
-      const response = apiLogout();
-      window.sessionStorage.clear()
-      navigate('/login')  
-  }
-
-  const returnWishList = () => {
-    if(window.sessionStorage.getItem("userEmail")){
-      return (<MenuItem onClick={() => navigate('/wishlist')}>WISHLIST</MenuItem>)
-    } 
-  }
-  const showNotifications = () =>{
-    if(navOpen) {
-        setNav(false);
+  const showNotifications = () => {
+    if (navOpen) {
+      setNav(false);
     } else {
       setNav(true);
     }
-    
-  }
+  };
 
   return (
     <Container>
       <Wrapper>
         <Left>
-        <Logo onClick={() => {navigate('/')}}>
-          Bizbazaar </Logo>
-        <Welcome>{checkUser()}</Welcome>
+          <Logo onClick={() => {navigate("/")}}>
+            Bizbazaar{" "}
+          </Logo>
+          <Welcome>
+            {window.sessionStorage.getItem("userEmail") ? "Welcome, " + window.sessionStorage.getItem("userFirstName") + "!" : "Shopping as Guest User"}
+          </Welcome>
         </Left>
         <Right>
-          {returnWishList()}
-          <MenuItem onClick={() => {navigate('/history')}}>ORDER HISTORY</MenuItem>
-          <MenuItem onClick={() => {navigate('/register')}}>REGISTER</MenuItem>
-          <MenuItem onClick={() => {signOut()}}>{setSignInSignOut()}</MenuItem>
-          <MenuItem onClick={() => {navigate('/cart')}}>
-              <ShoppingCartOutlined />
+          {window.sessionStorage.getItem("userEmail") ? (
+            <>
+              <MenuItem onClick={() => navigate("/wishlist")}>WISHLIST</MenuItem>
+              <MenuItem onClick={() => navigate("/history")}>ORDER HISTORY</MenuItem>
+              <MenuItem onClick={() => signOut()}>LOGOUT</MenuItem>
+            </>
+          ) : (
+            <>
+              <MenuItem onClick={() => navigate("/register")}>REGISTER</MenuItem>
+              <MenuItem onClick={() => navigate("/login")}>LOGIN</MenuItem>
+            </>
+          )}
+          <MenuItem onClick={() => {navigate("/cart")}}>
+            <ShoppingCartOutlined />
           </MenuItem>
           <MenuItem onClick={showNotifications}>
-              <NotificationsNoneIcon/>
+            <NotificationsNoneIcon />
           </MenuItem>
-          
         </Right>
       </Wrapper>
-      {navOpen &&
-      <NotificationTray><NotificationsNoneIcon /><br /> 0</NotificationTray>
-      }
-      
+      {navOpen && (
+        <NotificationTray>
+          <NotificationsNoneIcon />
+          <br /> 0
+        </NotificationTray>
+      )}
     </Container>
   );
 };
