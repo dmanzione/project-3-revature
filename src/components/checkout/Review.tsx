@@ -4,13 +4,11 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
-import Product from '../../models/Product';
 import PaymentDetail from '../../models/PaymentDetail';
 import Address from '../../models/Address';
 import { Box, Button } from '@mui/material';
 
 import { CartContext } from '../../context/cart.context';
-import { ProductionQuantityLimitsSharp } from '@mui/icons-material';
 import { apiPurchase } from '../../remote/e-commerce-api/orderService';
 
 
