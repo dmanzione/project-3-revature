@@ -12,13 +12,10 @@ import PaymentForm from './PaymentForm';
 import Review from './Review';
 import Address from '../../models/Address';
 import PaymentDetail from '../../models/PaymentDetail';
-import Product from '../../models/Product';
 import Navbar from '../navbar/Narbar';
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-const products: Product[] = [
-];
 let address = {
   firstName: "",
   lastName: "",

@@ -145,7 +145,7 @@ export const ProductCard = (props: productProps) => {
   // Simulates star icon click or leave it blank
   function isWishlistProduct() {
     for (const element of wishlist) {
-      if (element.id == props.product.id) {
+      if (element.id === props.product.id) {
         setStarClicked(true);
       }
     }
