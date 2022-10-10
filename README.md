@@ -1,7 +1,7 @@
 # project-3-revature
 ## Project 3 for the Revature Full-Stack Java with React training
 
-*This is actually a fork of the original project, which was completed by the class as a whole. I forked and renamed the project to make it more visible and clear in relation to other Revature projects I completed/participated in. The backend part of the original project can be found* [here](https://github.com/orgs/bizbazaar/repositories)
+*This is actually a fork of the original project, which was completed by the class as a whole. I forked and renamed the project to make it more visible and clear in relation to other Revature projects I completed/participated in. The original project can be found* [here](https://github.com/orgs/bizbazaar/repositories)
 
 This project had us implementing what we had been learning about:
 
