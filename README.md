@@ -41,4 +41,6 @@ This project had us implementing what we had been learning about:
 
 As this was our first group project, we were taught about Agile methodologies and Scrum and applied the knowledge by doing sprints, conducting daily standups, etc., and had to learn how to create pull requests, forks, and more on GitHub
 
+## How to look at the code we wrote
 
+I made a copy of the projects we wrote as a class, which are orphan branches to this repository. There are two such branches: frontend and backend. Additionally, the forks I had made can be found in my list of repositories
