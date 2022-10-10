@@ -1,6 +1,8 @@
 # project-3-revature
 ## Project 3 for the Revature Full-Stack Java with React training
 
+*This is actually a fork of the original project, which was completed by the class as a whole. I forked and renamed the project to make it more visible and clear in relation to other Revature projects I completed/participated in. The backend part of the original project can be found* [here](https://github.com/orgs/bizbazaar/repositories)
+
 This project had us implementing what we had been learning about:
 
 *for backend*
@@ -39,8 +41,9 @@ This project had us implementing what we had been learning about:
 
 *generally*
 
-As this was our first group project, we were taught about Agile methodologies and Scrum and applied the knowledge by doing sprints, conducting daily standups, etc., and had to learn how to create pull requests, forks, and more on GitHub
+- As this was our first group project, we were taught about Agile methodologies and Scrum and applied the knowledge by doing sprints, conducting daily standups, etc., and had to learn how to create pull requests, forks, and more on GitHub
+- How to consume REST API services with a frontend application: how to put them together into a Full-Stack application
 
 ## How to look at the code we wrote
 
-I made a copy of the projects we wrote as a class, which are orphan branches to this repository. There are two such branches: frontend and backend. Additionally, the forks I had made can be found in my list of repositories
+The backend API and frontend application can be viewed by switching to the 'backend' or 'frontend' orphan branches in this repository 
